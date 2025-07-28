@@ -27,20 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     ];
 
-    for(let i = 0; i < 3; i++){
-        const num = 5*Math.random();
-        console.log(num);
-        console.log(Math.floor(num));
-    }
 
     fetch('./concept-template.html')
         .then(res => res.text())
         .then(template => {
-            const item = Math.floor(5 * Math.random());
-            const concepElement = document.getElementById('container');
-            const html = template.replace(/{{title}}/g, concepts[item].title)
-                                 .replace(/{{content}}/g, concepts[item].content)
-            concepElement.innerHTML = html;
-        });
+            
 
+        function updateConcept(){
+                const item = Math.floor(Math.random() * concepts.length);
+                const concepElement = document.getElementById('container');
+                const html = template.replace(/{{title}}/g, concepts[item].title)
+                                    .replace(/{{content}}/g, concepts[item].content)
+                concepElement.innerHTML = html;
+            
+        }             
+        updateConcept();
+        setInterval(updateConcept, 1500);
+        });
+   
 });
